@@ -1,0 +1,24 @@
+1. collect uplifting news headlines from subreddit from last 24 hours once per day
+2. compile in spreadsheet to be edited/filtered
+  -can automate filtering later
+3. create video
+  -how many headlines
+  -how to make video
+4. upload to youtube to be posted at the same time every day
+
+Video format:
+-TikTok voiced
+-some background ideas
+  -random relevant image
+  -google image search of headline
+Intro voice line:
+Meat:
+  -read out headlines
+Outro voice line:
+
+
+
+
+
+record random fall guys video for background video
+fortnite font for text

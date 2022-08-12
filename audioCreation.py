@@ -9,7 +9,7 @@ import configparser
 import csv
 from datetime import date
 import importlib
-voice = importlib.import_module("tiktok-voice.main")
+import voice
 
 #   make_voice_lines
 #   create text to speech voice lines to place into video
@@ -23,26 +23,25 @@ def make_voice_lines():
     intro_text = config["Voice Lines"]["intro_text"]
     outro_text = config["Voice Lines"]["outro_text"]
     headline_amount = int(config["Voice Lines"]["headline_count"])
+    tiktok_voice = config["Voice Lines"]["voice"]
 
     #create intro voice
-    intro_tts = gTTS(intro_text, lang="en", tld="com.au")
-    intro_tts.save("intro.mp3")
+    intro_tts = voice.generate_voice(intro_text, "intro.mp3", tiktok_voice)
 
     #create outro voice
-    outro_tts = gTTS(outro_text, lang="en", tld="com.au")
-    outro_tts.save("outro.mp3")
+    outro_tts = voice.generate_voice(outro_text, "outro.mp3", tiktok_voice)
 
     #create content voice
-    content_tts = make_content_voice(headline_amount)
-    content_tts.save("content.mp3")
+    content_tts = make_content_voice(tiktok_voice, headline_amount)
 
 
 #   make_content_voice
 #   create content voice lines with headlines from reddit
-#   Input:  headline_amount   the number of headlines to read
-#   Output: tts         text to speech object for content voice lines
+#   Input:  tiktok_voice        tiktok voice to use
+#           headline_amount     the number of headlines to read
+#   Output: filename         filename for mp3
 #
-def make_content_voice(headline_amount=3):
+def make_content_voice(tiktok_voice, headline_amount=3):
     todays_date = str(date.today())
     headlines = []  #headlines for voice to read
     #open todays posts csv file
@@ -61,12 +60,5 @@ def make_content_voice(headline_amount=3):
 
     #handle voice processing
     content_text = ". ".join(headlines)
-    tts = gTTS(content_text, lang="en", tld="com.au")
-    return tts
-
-
-def make_video():
-    #premade video clip for background
-    myclip = VideoFileClip("")
-
-voice.main("hello","en_au_001")
+    filename = voice.generate_voice(content_text, f"content-{todays_date}.mp3", tiktok_voice)
+    return filename

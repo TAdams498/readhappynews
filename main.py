@@ -7,5 +7,8 @@ import scrape
 import audioCreation
 
 if __name__ == "__main__":
+    #grab reddit content
     scrape.create_posts_csv()
+    #create voice line audio
     audioCreation.make_voice_lines()
+    #stitch together video

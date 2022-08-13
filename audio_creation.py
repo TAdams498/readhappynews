@@ -45,7 +45,7 @@ def make_content_voice(tiktok_voice, headline_amount=3):
     todays_date = str(date.today())
     headlines = []  #headlines for voice to read
     #open todays posts csv file
-    with open("posts/posts-" + todays_date + ".csv", newline='') as csvfile:
+    with open("posts/posts_" + todays_date + ".csv", newline='') as csvfile:
         reader = csv.reader(csvfile)
         #read through number of headlines from posts
         iterations = 0
@@ -60,5 +60,5 @@ def make_content_voice(tiktok_voice, headline_amount=3):
 
     #handle voice processing
     content_text = ". ".join(headlines)
-    filename = voice.generate_voice(content_text, f"content-{todays_date}.mp3", tiktok_voice)
+    filename = voice.generate_voice(content_text, f"content_{todays_date}.mp3", tiktok_voice)
     return filename

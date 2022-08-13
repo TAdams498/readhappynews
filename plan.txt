@@ -20,5 +20,14 @@ Outro voice line:
 
 
 
-record random fall guys video for background video
 fortnite font for text
+
+add subtitles to video
+calculate audio length to set how many headlines to read
+  -get 5 headlines
+  -get length of headline readings
+  -calculate which headlines to add together to get as close to 30 sec as possible
+trim video to audio length
+add other extra video things
+  -watermark
+  -subscribe and like etc

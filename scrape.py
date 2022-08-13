@@ -30,4 +30,4 @@ def create_posts_csv():
     panda_posts = pd.DataFrame(posts)
     #export to csv
     todays_date = str(date.today())
-    panda_posts.to_csv(f"posts/posts-{todays_date}.csv", index=True)
+    panda_posts.to_csv(f"posts/posts_{todays_date}.csv", index=True)

@@ -6,7 +6,9 @@
 import scrape
 import audio_creation
 import video_creation
+import upload
 import Project
+import os
 
 if __name__ == "__main__":
     Project_File = Project.Project()
@@ -17,4 +19,5 @@ if __name__ == "__main__":
     #create video
     video_creation.make_video(Project_File)
     #upload video
-    
+    upload.upload(Project_File)
+    print("ALL DONE!")

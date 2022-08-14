@@ -72,11 +72,10 @@ def trim_video(vid):
 #   Output: vidF    edited video file
 #
 def add_subtitles(Project_File, vid):
-    #set text clips
+    #create text clips
     text_clips = create_text_clips(Project_File)
-    print(text_clips)
-    #determine timestamps to place text at
-    vidF = None
+    #put text clips into video
+    vidF = CompositeVideoClip([vid, *text_clips])
     return vidF
 
 
@@ -86,7 +85,7 @@ def add_subtitles(Project_File, vid):
 #   Output: clips   list of created text clips
 #
 def create_text_clips(Project_File):
-    clips = {}  #TextClip:timestamp to start at
+    clips = []
     texts = {}  #string in text:length
     intro_text = Project_File.get_intro_text()
     outro_text = Project_File.get_outro_text()
@@ -99,12 +98,12 @@ def create_text_clips(Project_File):
     #add outro clip
     texts[outro_text] = get_audio_length("voices/outro.mp3")
     #iterate through all text
-    previous_clip_length = 0
+    timestamp = 0
     for key in texts:
         #create clip
-        clip = TextClip(key, fontsize = 40, color = "white").set_position("center").set_duration(texts[key])
-        clips[clip] = previous_clip_length
-        previous_clip_length += texts[key]
+        clip = TextClip(key.upper(), fontsize = 50, font = "fortnite.otf", color = "black", method = "caption").set_position("center").set_duration(texts[key]).set_start(timestamp)
+        clips.append(clip)
+        timestamp += texts[key]
     return clips
 
 
@@ -138,4 +137,5 @@ def make_video(Project_File):
     #edit video
     clip_edited = add_subtitles(Project_File, clip_av)
 
-    clip_av.write_videofile(f"videos/final_{todays_date}.mp4")
+    clip_edited.write_videofile(f"videos/final_{todays_date}.mp4")
+    Project_File.set_final_video(f"videos/final_{todays_date}.mp4")

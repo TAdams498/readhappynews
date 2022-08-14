@@ -9,10 +9,10 @@ from datetime import date
 
 #   create_posts_csv
 #   create csv file containing information from todays top posts
-#   Input:  none
+#   Input:  Project_File
 #   Output: none
 #
-def create_posts_csv():
+def create_posts_csv(Project_File):
     #read-only praw instance
     reddit_read_only = praw.Reddit(client_id="LGDn1hg5MkEVWly3KXhEhA", client_secret="pg88IYqS2MU1jV8FqVTU8DSkPeXZRQ", user_agent="read-happy-news")
     subreddit = reddit_read_only.subreddit("upliftingnews")
@@ -30,4 +30,6 @@ def create_posts_csv():
     panda_posts = pd.DataFrame(posts)
     #export to csv
     todays_date = str(date.today())
-    panda_posts.to_csv(f"posts/posts_{todays_date}.csv", index=True)
+    panda_posts_loc = f"posts/posts_{todays_date}.csv"
+    panda_posts.to_csv(panda_posts_loc, index=True)
+    Project_File.set_headlines_csv(panda_posts_loc)

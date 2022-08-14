@@ -6,12 +6,15 @@
 import scrape
 import audio_creation
 import video_creation
+import Project
 
 if __name__ == "__main__":
+    Project_File = Project.Project()
     #grab reddit content
-    scrape.create_posts_csv()
+    scrape.create_posts_csv(Project_File)
     #create voice line audio
-    audio_creation.make_voice_lines()
+    audio_creation.make_voice_lines(Project_File)
     #create video
-    video_creation.make_video()
+    video_creation.make_video(Project_File)
     #upload video
+    

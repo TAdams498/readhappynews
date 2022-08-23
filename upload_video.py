@@ -1,5 +1,4 @@
-#!/usr/bin/python
-
+import http.client as httplib
 import httplib2
 import os
 import random
@@ -20,6 +19,12 @@ httplib2.RETRIES = 1
 
 # Maximum number of times to retry before giving up.
 MAX_RETRIES = 10
+
+# Always retry when these exceptions are raised.
+RETRIABLE_EXCEPTIONS = (httplib2.HttpLib2Error, IOError, httplib.NotConnected,
+  httplib.IncompleteRead, httplib.ImproperConnectionState,
+  httplib.CannotSendRequest, httplib.CannotSendHeader,
+  httplib.ResponseNotReady, httplib.BadStatusLine)
 
 # Always retry when an apiclient.errors.HttpError with one of these status
 # codes is raised.
@@ -130,13 +135,13 @@ def resumable_upload(insert_request):
           print("Video id '%s' was successfully uploaded." % response['id'])
         else:
           exit("The upload failed with an unexpected response: %s" % response)
-    except e:
+    except(HttpError, e):
       if e.resp.status in RETRIABLE_STATUS_CODES:
         error = "A retriable HTTP error %d occurred:\n%s" % (e.resp.status,
                                                              e.content)
       else:
         raise
-    except e:
+    except(RETRIABLE_EXCEPTIONS, e):
       error = "A retriable error occurred: %s" % e
 
     if error is not None:
@@ -170,5 +175,5 @@ if __name__ == '__main__':
   youtube = get_authenticated_service(args)
   try:
     initialize_upload(youtube, args)
-  except e:
+  except(HttpError, e):
     print("An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))

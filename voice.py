@@ -17,8 +17,11 @@ import os
 #
 def generate_voice(text, filename, speaker="en_au_001"):
     #post request to tiktok
-    req = requests.post(f"https://api16-normal-useast5.us.tiktokv.com/media/api/text/speech/invoke/?text_speaker={speaker}&req_text={text}&speaker_map_type=0")
+    post = f"https://api16-normal-useast5.us.tiktokv.com/media/api/text/speech/invoke/?text_speaker={speaker}&req_text={text}&speaker_map_type=0"
+    print(post)
+    req = requests.post(post)
     #extract voice data
+    print(req.json())
     voiceData = [req.json()["data"]["v_str"]][0]
     #decode voice data
     voiceLine = base64.b64decode(voiceData)

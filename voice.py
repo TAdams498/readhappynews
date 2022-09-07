@@ -17,11 +17,14 @@ import os
 #
 def generate_voice(text, filename, speaker="en_au_001"):
     #post request to tiktok
-    post = f"https://api16-normal-useast5.us.tiktokv.com/media/api/text/speech/invoke/?text_speaker={speaker}&req_text={text}&speaker_map_type=0"
-    print(post)
-    req = requests.post(post)
+    #old URL post = f"https://api16-normal-useast5.us.tiktokv.com/media/api/text/speech/invoke/?text_speaker={speaker}&req_text={text}&speaker_map_type=0"
+    post = f"https://api22-normal-c-useast1a.tiktokv.com/media/api/text/speech/invoke/?text_speaker={speaker}&req_text={text}&speaker_map_type=0&aid=1233"
+    headers = {
+        'User-Agent': 'com.zhiliaoapp.musically/2022600030 (Linux; U; Android 7.1.2; es_ES; SM-G988N; Build/NRD90M;tt-ok/3.12.13.1)',
+        'Cookie': 'sessionid=57b7d8b3e04228a24cc1e6d25387603a'
+    }
+    req = requests.post(post, headers=headers)
     #extract voice data
-    print(req.json())
     voiceData = [req.json()["data"]["v_str"]][0]
     #decode voice data
     voiceLine = base64.b64decode(voiceData)

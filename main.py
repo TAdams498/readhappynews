@@ -19,5 +19,4 @@ if __name__ == "__main__":
     #create video
     video_creation.make_video(Project_File)
     #upload video
-    upload.upload(Project_File)
-    print("Follow prompts on browser")
+    upload.upload_with_API(Project_File)

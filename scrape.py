@@ -3,7 +3,7 @@
 #   Created on: 08/12/2022
 
 #imports
-import praw     #to handle python scraping
+import praw
 import pandas as pd
 from datetime import date
 

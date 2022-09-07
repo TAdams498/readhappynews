@@ -9,12 +9,12 @@ import Project
 import random
 from datetime import date
 
-#   uploadWithAPI
+#   upload_with_API
 #   upload videos to platforms using google API
 #   Input:  Project_File
 #   Output: none
 #
-def uploadWithAPI(Project_File):
+def upload_with_API(Project_File):
     file = Project_File.get_final_video()
     category = "24"
     privacy_status = "public"

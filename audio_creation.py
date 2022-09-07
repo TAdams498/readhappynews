@@ -3,7 +3,6 @@
 #   Created on: 08/12/2022
 
 from moviepy.editor import *
-from gtts import gTTS
 from playsound import playsound
 import configparser
 import csv
